@@ -16,9 +16,13 @@ html, body {
     width: 300px;
     height: 70px;
     margin: 20px 10px;
+    padding-left: 10px;
+    padding-right: 10px;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
+    font-size: 50px;
+    overflow: hidden;
     border: solid red 1px;
 }
 
