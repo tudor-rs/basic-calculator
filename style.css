@@ -9,7 +9,8 @@ html, body {
     height: 500px;
     display: flex;
     flex-flow: column nowrap;
-    border: solid black 5px;
+    border: solid rgb(58, 45, 24) 3px;
+    background-color: rgb(48, 70, 88);
 }
 
 #display {
@@ -23,29 +24,30 @@ html, body {
     align-items: center;
     font-size: 50px;
     overflow: hidden;
-    border: solid red 1px;
+    border: solid rgb(65, 75, 47) 2px;
+    background-color: rgb(194, 207, 171);
 }
 
 #button-container {
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
-    border: solid black 1px;
 }
 
 .button-group {
     display: flex;
     width: fit-content;
-    border: solid blue 1px;
 }
 
 .button {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 70px;
-    width: 70px;
+    height: 60px;
+    width: 60px;
+    margin: 5px;
     border: solid black 1px;
     user-select: none;
-    
+    box-shadow: 2px 2px black;
+    color: white;
 }

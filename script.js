@@ -4,7 +4,7 @@ const NUMBER_BUTTONS = document.querySelectorAll('.number-button');
 
 for (let i = 0; i < OPERATOR_BUTTONS.length; i++) {
     OPERATOR_BUTTONS[i].addEventListener('click', () => {
-        DISPLAY.innerText += `${OPERATOR_BUTTONS[i].innerText}`;
+        console.log(OPERATOR_BUTTONS[i].innerText);
     });
 }
 
@@ -13,6 +13,3 @@ for (let i = 0; i < NUMBER_BUTTONS.length; i++) {
         DISPLAY.innerText += `${NUMBER_BUTTONS[i].innerText}`;
     });
 }
-
-
-
