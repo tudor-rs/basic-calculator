@@ -59,6 +59,14 @@ html, body {
     margin-bottom: 3px;
 }
 
+.operator-button {
+    background-color: rgb(64, 94, 119);
+}
+
 #button-zero {
     width: 134px;
+}
+
+#button-c {
+    background-color: rgb(36, 59, 78);
 }

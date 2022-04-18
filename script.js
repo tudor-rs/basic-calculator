@@ -2,19 +2,18 @@ const DISPLAY = document.querySelector('#display');
 const OPERATOR_BUTTONS = document.querySelectorAll('.operator-button');
 const NUMBER_BUTTONS = document.querySelectorAll('.number-button');
 
-let opInProgress = false; // without this it will concatenate result and new inputs on display
+let opInProgress = false; // without this the result gets concatenated with new numbers on display
 let firstRun = true;
-let waitingForNumber = true; // so you can't press the same operator repeatedly,
-                            // it means than no operation is currently in execution
-
+let waitingForNumber = true; // so you can't press the same operator repeatedly
 let waitingForOperator = false; // this prevents inputing numbers after '=' has been pressed
-                                // unless it's another operator or utility button
-let decimalPressed = false;
+let decimalPressed = false; // this will prevent user from pressing decimal more than once
 
 let num1;
 let num2;
 let result;
 let operator;
+
+// add event listener to operator buttons
 
 for (let i = 0; i < OPERATOR_BUTTONS.length; i++) {
     OPERATOR_BUTTONS[i].addEventListener('click', () => {
@@ -26,6 +25,8 @@ for (let i = 0; i < OPERATOR_BUTTONS.length; i++) {
         processInput(OPERATOR_BUTTONS[i].innerText);
     });
 }
+
+// add event listener to numbers
 
 for (let i = 0; i < NUMBER_BUTTONS.length; i++) {
     NUMBER_BUTTONS[i].addEventListener('click', () => {
@@ -166,6 +167,8 @@ function operate() {
     }
 }
 
+// this function doesn't let some buttons register as operators in global 'operator' variable
+
 function filterOperator(input) {
     if (input == 'C' || input == '-/+' || input == 'DEL') {
         return;
@@ -181,5 +184,8 @@ function filterOperator(input) {
     }
 }
 
+// todo
 // results that are very long do not fit the display, need to format
-// decimal button can be pressed multiple times ? wtf
+// division by zero
+// pressing '=' at the beginning of an op or after inputing only one number causes errors
+// at the beginning of the operation you can press '.' two times
