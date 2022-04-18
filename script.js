@@ -2,9 +2,15 @@ const DISPLAY = document.querySelector('#display');
 const OPERATOR_BUTTONS = document.querySelectorAll('.operator-button');
 const NUMBER_BUTTONS = document.querySelectorAll('.number-button');
 
-let opInProgress = false;
+let opInProgress = false; // without this it will concatenate result and new inputs on display
 let firstRun = true;
-let waitingForNumber = true;
+let waitingForNumber = true; // so you can't press the same operator repeatedly,
+                            // it means than no operation is currently in execution
+
+let waitingForOperator = false; // this prevents inputing numbers after '=' has been pressed
+                                // unless it's another operator or utility button
+let decimalPressed = false;
+
 let num1;
 let num2;
 let result;
@@ -13,23 +19,40 @@ let operator;
 for (let i = 0; i < OPERATOR_BUTTONS.length; i++) {
     OPERATOR_BUTTONS[i].addEventListener('click', () => {
         opInProgress = true;
+        decimalPressed = false;
+        if (OPERATOR_BUTTONS[i].innerText != '=') {
+            waitingForOperator = false;
+        }
         processInput(OPERATOR_BUTTONS[i].innerText);
     });
 }
 
 for (let i = 0; i < NUMBER_BUTTONS.length; i++) {
     NUMBER_BUTTONS[i].addEventListener('click', () => {
-        if (opInProgress) {
-            DISPLAY.innerText = '';
-            DISPLAY.innerText = `${NUMBER_BUTTONS[i].innerText}`;
-            opInProgress = false;
+        if (waitingForOperator) {
+            return;
         }
 
         else {
-            DISPLAY.innerText += `${NUMBER_BUTTONS[i].innerText}`;
-        }
+            if (opInProgress) {
+                DISPLAY.innerText = '';
+                DISPLAY.innerText = `${NUMBER_BUTTONS[i].innerText}`;
+                opInProgress = false;
+            }
 
-        waitingForNumber = false;
+            else {
+                if (decimalPressed && NUMBER_BUTTONS[i].innerText == '.') {
+                    return;
+                }
+                else {
+                    DISPLAY.innerText += `${NUMBER_BUTTONS[i].innerText}`;
+                    if (NUMBER_BUTTONS[i].innerText == '.') {
+                        decimalPressed = true;
+                    }
+                }
+            }
+            waitingForNumber = false;
+        }
     });
 }
 
@@ -41,69 +64,82 @@ function display(input) {
     DISPLAY.innerText = input;
 }
 
+function clearEverything() {
+    DISPLAY.innerText = '';
+    num1 = undefined;
+    num2 = undefined;
+    operator = undefined;
+    result = undefined;
+    firstRun = true;
+    waitingForNumber = true;
+    waitingForOperator = false;
+    console.log(`clearEverything()`);
+}
+
 function processInput(input) {
     if (input == 'C') {
-        DISPLAY.innerText = '';
-        num1 = undefined;
-        num2 = undefined;
-        operator = undefined;
-        result = undefined;
-        firstRun = true;
-        waitingForNumber = true;
-        console.log(`cleaered everything`);
+        clearEverything();
         return;
     }
 
-    else if (input == '-/+') {
+    else if (input == '-/+' && !waitingForNumber) {
         let i = parseInt(DISPLAY.innerText);
         i = -i;
         display(i);
         return;
     }
 
+    else if (input == 'DEL' && !waitingForNumber) {
+        opInProgress = false;
+        let i = DISPLAY.innerText;
+        display(i.slice(0, i.length - 1));
+        console.log(`reached del`);
+        return;
+    }
+
     if (firstRun) {
         if (!num1 && !num2) {
             waitingForNumber = true;
-
             num1 = getDisplay();
-            operator = input;
-            console.log(`num1 = ${num1}, operator = ${operator}`);
+            filterOperator(input);
+            console.log(`[!num1 && !num2]: [num1 = ${num1}] [operator = ${operator}]`);
         }
 
         else if (num1 && !num2) {
             if (waitingForNumber) {
-                operator = input;
-                console.log(`new operator = ${operator}`);
+                filterOperator(input);
+                console.log(`[num1 && !num2]: [num1 = ${num1}] [num2 = ${num2}] [operator = ${operator}] [result = ${result}]`);
+                console.log(`New operator = [${operator}]`);
             }
 
             else if (!waitingForNumber) {
                 num2 = getDisplay();
                 operate();
-                console.log(`num1 = ${num1}, num2 = ${num2}, operator = ${operator} result = ${result}`);
-                operator = input;
-                console.log(`new operator = ${operator}`);
+                console.log(`[!waitingForNumber]: [num1 = ${num1}] [num2 = ${num2}] [operator = ${operator}] [result = ${result}]`);
+                filterOperator(input);
+                console.log(`New operator = ${operator}`);
                 firstRun = false;
                 waitingForNumber = true;
-                console.log('--------------------------');
+                console.log('-- firstRun = false --');
             }
         }
     }
 
     else if (!firstRun) {
         if (waitingForNumber) {
-            operator = input;
-            console.log(`new operator = ${operator}`);
+            filterOperator(input);
+            console.log(`New operator = ${operator}`);
         }
 
         else if (!waitingForNumber) {
             num1 = result;
             num2 = getDisplay();
             operate();
-            console.log(`num1 = ${num1}, num2 = ${num2}, operator = ${operator} result = ${result}`);
-            operator = input;
-            console.log(`new operator = ${operator}`);
+            console.log(`Result: num1 = ${num1}, num2 = ${num2}, operator = ${operator} result = ${result}`);
+            filterOperator(input);
+            console.log(`New operator = ${operator}`);
             waitingForNumber = true;
-            console.log(`waiting for number, ${waitingForNumber}`);
+            console.log(`Waiting for number? ${waitingForNumber}`);
         }
     }
 }
@@ -128,17 +164,22 @@ function operate() {
         result = num1 / num2;
         display(result);
     }
+}
 
-    else if (operator == '=') {
+function filterOperator(input) {
+    if (input == 'C' || input == '-/+' || input == 'DEL') {
+        return;
+    }
+
+    else if (input == '=') {
+        waitingForOperator = true;
         display(result);
+    }
+
+    else {
+        operator = input;
     }
 }
 
-
-// when pressing plus sign repeatedly it keeps adding up the numbers [done]
 // results that are very long do not fit the display, need to format
-// backspace functionality
-// shift buttons upwards (equals to be bottom right)
-// delete ? button
-
-// -/+ functinoality? need to decide how it is going to behave.
+// decimal button can be pressed multiple times ? wtf
