@@ -187,7 +187,7 @@ function filterOperator(input) {
         }
 
         else if (num2 == 0) {
-            display('err');
+            display('Invalid operation');
         }
 
         else {
@@ -204,3 +204,4 @@ function filterOperator(input) {
 // results that are very long do not fit the display, need to format
 // keyboard functionality
 // round answers with long decimals so that they don’t overflow the screen
+// better css

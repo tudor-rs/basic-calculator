@@ -22,9 +22,12 @@ html, body {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    font-size: 50px;
+    font-size: 35px;
     border: solid rgb(65, 75, 47) 2px;
     background-color: rgb(194, 207, 171);
+    box-shadow: inset 2px 2px 3px black;
+
+    border-radius: 5px;
 }
 
 #button-container {
@@ -45,10 +48,12 @@ html, body {
     height: 60px;
     width: 60px;
     margin: 5px;
-    border: solid black 1px;
+    border: solid black 0.5px;
     user-select: none;
     box-shadow: 2px 2px black;
     color: white;
+
+    border-radius: 5px;
 }
 
 .button:active {
@@ -68,5 +73,5 @@ html, body {
 }
 
 #button-c {
-    background-color: rgb(36, 59, 78);
+    background-color: rgb(117, 65, 65);
 }
