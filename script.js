@@ -1,7 +1,6 @@
 const MAIN_CONTAINER = document.querySelector('#main-container');
 const DISPLAY = document.querySelector('#display');
 const OPERATOR_BUTTONS = document.querySelectorAll('.operator-button');
-const OPERATOR_BUTTON_C = document.querySelector('#button-c');
 const NUMBER_BUTTONS = document.querySelectorAll('.number-button');
 const BLUE_THEME_BUTTON = document.querySelector('#blue-theme-button');
 const ORANGE_THEME_BUTTON = document.querySelector('#orange-theme-button');
