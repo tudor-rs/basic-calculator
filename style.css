@@ -4,13 +4,22 @@ html, body {
     font-family: 'Roboto', sans-serif;
 }
 
+body {
+    height: 95vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-flow: column nowrap;
+}
+
 #main-container {
     width: fit-content;
     height: 500px;
     display: flex;
     flex-flow: column nowrap;
-    border: solid rgb(58, 45, 24) 3px;
-    background-color: rgb(48, 70, 88);
+    border-radius: 10px;
+    background-color: rgb(54, 71, 87);
+    margin-top: 50px;
 }
 
 #display {
@@ -23,11 +32,10 @@ html, body {
     justify-content: flex-end;
     align-items: center;
     font-size: 35px;
-    border: solid rgb(65, 75, 47) 2px;
     background-color: rgb(194, 207, 171);
     box-shadow: inset 2px 2px 3px black;
 
-    border-radius: 5px;
+    border-radius: 10px;
 }
 
 #button-container {
@@ -48,12 +56,10 @@ html, body {
     height: 60px;
     width: 60px;
     margin: 5px;
-    border: solid black 0.5px;
     user-select: none;
     box-shadow: 2px 2px black;
     color: white;
-
-    border-radius: 5px;
+    border-radius: 10px;
 }
 
 .button:active {
@@ -74,4 +80,61 @@ html, body {
 
 #button-c {
     background-color: rgb(117, 65, 65);
+}
+
+#footer {
+    height: 5vh;
+    width: 95vw;
+    display: flex;
+    justify-content: center;
+}
+
+#footer-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+#blue-theme-button,
+#orange-theme-button {
+    width: 150px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background-color: rgb(64, 94, 119);
+    user-select: none;
+    border-radius: 10px;
+}
+
+.orange-theme #button-c {
+    background-color: rgb(255, 172, 46);
+}
+
+.orange-theme .operator-button {
+    color: rgb(43, 43, 43);
+    background-color: rgb(182, 182, 182);
+    border: solid rgb(221, 221, 221) 0.5px;
+    box-shadow: 2px 2px rgb(202, 202, 202);
+}
+
+.orange-theme .operator-button:active {
+    box-shadow: none;
+}
+
+.orange-theme .number-button {
+    color: rgb(43, 43, 43);
+    background-color: rgb(211, 211, 211);
+    border: solid rgb(221, 221, 221) 0.5px;
+    box-shadow: 2px 2px rgb(202, 202, 202);
+}
+
+.orange-theme .number-button:active {
+    box-shadow: none;
+}
+
+.orange-theme .button {
+    border-radius: 25px;
 }

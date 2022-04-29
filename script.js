@@ -1,6 +1,10 @@
+const MAIN_CONTAINER = document.querySelector('#main-container');
 const DISPLAY = document.querySelector('#display');
 const OPERATOR_BUTTONS = document.querySelectorAll('.operator-button');
+const OPERATOR_BUTTON_C = document.querySelector('#button-c');
 const NUMBER_BUTTONS = document.querySelectorAll('.number-button');
+const BLUE_THEME_BUTTON = document.querySelector('#blue-theme-button');
+const ORANGE_THEME_BUTTON = document.querySelector('#orange-theme-button');
 
 let opInProgress = false; // without this the result gets concatenated with new inputs on display
 let firstRun = true;
@@ -155,21 +159,25 @@ function processInput(input) {
 function operate() {
     if (operator == '+') {
         result = num1 + num2;
+        result = result.toFixed(2);
         display(result);
     }
 
     else if (operator == '-') {
         result = num1 - num2;
+        result = result.toFixed(2);
         display(result);
     }
 
     else if (operator == '*') {
         result = num1 * num2;
+        result = result.toFixed(2);
         display(result);
     }
 
     else if (operator == '/') {
         result = num1 / num2;
+        result = result.toFixed(2);
         display(result);
     }
 }
@@ -183,7 +191,7 @@ function filterOperator(input) {
 
     else if (input == '=') {
         if (num1 == undefined || num2 == undefined || result == undefined || operator == undefined) {
-            display('err');
+            display('');
         }
 
         else if (num2 == 0) {
@@ -201,7 +209,17 @@ function filterOperator(input) {
     }
 }
 
+// themes
+
+BLUE_THEME_BUTTON.addEventListener('click', () => {
+    MAIN_CONTAINER.style.backgroundColor = 'rgb(54, 71, 87)';
+    MAIN_CONTAINER.classList.remove('orange-theme');
+});
+
+ORANGE_THEME_BUTTON.addEventListener('click', () => {
+    MAIN_CONTAINER.style.backgroundColor = 'rgb(227, 227, 227)';
+    MAIN_CONTAINER.classList.add('orange-theme');
+});
+
 // results that are very long do not fit the display, need to format
 // keyboard functionality
-// round answers with long decimals so that they don’t overflow the screen
-// better css
