@@ -40,6 +40,7 @@ for (let i = 0; i < OPERATOR_BUTTONS.length; i++) {
 for (let i = 0; i < NUMBER_BUTTONS.length; i++) {
     NUMBER_BUTTONS[i].addEventListener('click', () => {
         if (getDisplay() == 'err') {
+            clearEverything();
             display('error');
         }
 
@@ -66,6 +67,11 @@ for (let i = 0; i < NUMBER_BUTTONS.length; i++) {
             }
             waitingForNumber = false;
         }
+
+        let x = DISPLAY.innerText;
+        if (x.length > 15) {
+            DISPLAY.innerText = x.slice(0, 15);
+        }
     });
 }
 
@@ -86,6 +92,10 @@ function getDisplay() {
 }
 
 function display(input) {
+    input = String(input);
+    if (input.length > 15) {
+        input = input.slice(0, 15);
+    }
     DISPLAY.innerText = input;
 }
 
@@ -219,7 +229,6 @@ ORANGE_THEME_BUTTON.addEventListener('click', () => {
     MAIN_CONTAINER.classList.add('orange-theme');
 });
 
-// results that are very long do not fit the display, need to format
 // keyboard functionality
 // if you start an operation and delete the second number the program errors and restarts
 // number + '.' = ???

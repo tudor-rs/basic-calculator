@@ -74,6 +74,10 @@ body {
     background-color: rgb(64, 94, 119);
 }
 
+.number-button {
+    background-color: rgb(50, 66, 88);
+}
+
 #button-zero {
     width: 134px;
 }
