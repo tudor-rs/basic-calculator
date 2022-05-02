@@ -120,7 +120,6 @@ body {
 .orange-theme .operator-button {
     color: rgb(43, 43, 43);
     background-color: rgb(182, 182, 182);
-    border: solid rgb(221, 221, 221) 0.5px;
     box-shadow: 2px 2px rgb(202, 202, 202);
 }
 
@@ -131,14 +130,9 @@ body {
 .orange-theme .number-button {
     color: rgb(43, 43, 43);
     background-color: rgb(211, 211, 211);
-    border: solid rgb(221, 221, 221) 0.5px;
     box-shadow: 2px 2px rgb(202, 202, 202);
 }
 
 .orange-theme .number-button:active {
     box-shadow: none;
-}
-
-.orange-theme .button {
-    border-radius: 25px;
 }
