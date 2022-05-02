@@ -40,8 +40,7 @@ for (let i = 0; i < OPERATOR_BUTTONS.length; i++) {
 for (let i = 0; i < NUMBER_BUTTONS.length; i++) {
     NUMBER_BUTTONS[i].addEventListener('click', () => {
         if (getDisplay() == 'err') {
-            clearEverything();
-            DISPLAY.innerText = `${NUMBER_BUTTONS[i].innerText}`;
+            display('error');
         }
 
         else if (waitingForOperator) {
@@ -71,6 +70,10 @@ for (let i = 0; i < NUMBER_BUTTONS.length; i++) {
 }
 
 function getDisplay() {
+    if (DISPLAY.innerText == '') {
+        return;
+    }
+
     let x = parseFloat(DISPLAY.innerText);
 
     if (Number.isNaN(x)) {
@@ -158,25 +161,21 @@ function processInput(input) {
 function operate() {
     if (operator == '+') {
         result = num1 + num2;
-        result = result.toFixed(2);
         display(result);
     }
 
     else if (operator == '-') {
         result = num1 - num2;
-        result = result.toFixed(2);
         display(result);
     }
 
     else if (operator == '*') {
         result = num1 * num2;
-        result = result.toFixed(2);
         display(result);
     }
 
     else if (operator == '/') {
         result = num1 / num2;
-        result = result.toFixed(2);
         display(result);
     }
 }
@@ -190,10 +189,10 @@ function filterOperator(input) {
 
     else if (input == '=') {
         if (num1 == undefined || num2 == undefined || result == undefined || operator == undefined) {
-            display('');
+            display('error');
         }
 
-        else if (num2 == 0) {
+        else if (num2 == 0 && operator == '/') {
             display('Invalid operation');
         }
 
@@ -222,3 +221,5 @@ ORANGE_THEME_BUTTON.addEventListener('click', () => {
 
 // results that are very long do not fit the display, need to format
 // keyboard functionality
+// if you start an operation and delete the second number the program errors and restarts
+// number + '.' = ???
